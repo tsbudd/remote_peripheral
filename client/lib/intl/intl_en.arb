@@ -1,0 +1,10 @@
+{
+  "locale": "en",
+  "menu_home": "Home",
+  "menu_users" : "Users",
+  "menu_view_users" : "View Users",
+  "menu_add_users" : "Add New User",
+  "menu_groups" : "Groups",
+  "menu_view_groups" : "View Groups",
+  "menu_add_groups" : "Add New Group"
+}
