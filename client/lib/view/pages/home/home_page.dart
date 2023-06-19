@@ -17,7 +17,7 @@ class _FindBlePageState extends State<FindBlePage> {
 
   Future<List<BluetoothDevice>> scanForDevices() async {
     final flutterBlue = FlutterBlue.instance;
-    await flutterBlue.startScan(timeout: Duration(seconds: 4));
+    await flutterBlue.startScan(timeout: const Duration(seconds: 30));
     List<BluetoothDevice> devicesList = [];
 
     flutterBlue.scanResults.listen((results) {
