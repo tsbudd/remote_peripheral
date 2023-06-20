@@ -1,13 +1,20 @@
+import 'package:client/control/provider/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
 class FindBlePage extends StatefulWidget {
+  const FindBlePage({super.key});
+
   @override
   _FindBlePageState createState() => _FindBlePageState();
 }
 
 class _FindBlePageState extends State<FindBlePage> {
   late Future<List<BluetoothDevice>> devices;
+  final flutterBlue = FlutterBlue.instance;
+  BluetoothDevice? selectedDevice;
+  BluetoothCharacteristic? keyboardCharacteristic;
+  BluetoothCharacteristic? mouseCharacteristic;
 
   @override
   void initState() {
@@ -15,32 +22,17 @@ class _FindBlePageState extends State<FindBlePage> {
     devices = scanForDevices();
   }
 
-  Future<List<BluetoothDevice>> scanForDevices() async {
-    final flutterBlue = FlutterBlue.instance;
-    await flutterBlue.startScan(timeout: const Duration(seconds: 30));
-    List<BluetoothDevice> devicesList = [];
-
-    flutterBlue.scanResults.listen((results) {
-      for (var scanResult in results) {
-        final device = scanResult.device;
-        devicesList.add(device);
-      }
-    });
-
-    return devicesList;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bluetooth Devices'),
+        title: const Text('Bluetooth Devices'),
       ),
       body: FutureBuilder<List<BluetoothDevice>>(
         future: devices,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
           } else {

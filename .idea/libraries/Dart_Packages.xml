@@ -359,6 +359,13 @@
             </list>
           </value>
         </entry>
+        <entry key="logger">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/logger-1.4.0/lib" />
+            </list>
+          </value>
+        </entry>
         <entry key="logging">
           <value>
             <list>
@@ -454,6 +461,41 @@
           <value>
             <list>
               <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="permission_handler">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler-10.3.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="permission_handler_android">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_android-10.2.3/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="permission_handler_apple">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_apple-9.1.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="permission_handler_platform_interface">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_platform_interface-3.10.0/lib" />
+            </list>
+          </value>
+        </entry>
+        <entry key="permission_handler_windows">
+          <value>
+            <list>
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_windows-0.1.2/lib" />
             </list>
           </value>
         </entry>
@@ -857,6 +899,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.6.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.8.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/lints-2.1.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/logger-1.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/logging-1.2.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/matcher-0.12.15/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/material_color_utilities-0.2.0/lib" />
@@ -871,6 +914,11 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_linux-2.1.11/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_platform_interface-2.0.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/path_provider_windows-2.1.7/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler-10.3.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_android-10.2.3/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_apple-9.1.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_platform_interface-3.10.0/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/permission_handler_windows-0.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/petitparser-5.4.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/platform-3.1.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.4/lib" />

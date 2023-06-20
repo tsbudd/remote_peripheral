@@ -46,6 +46,8 @@ dependencies:
   google_fonts: ^5.0.0
   shared_preferences: ^2.1.2
   riverpod_annotation: ^2.1.1
+  permission_handler: ^10.3.0
+  logger: ^1.4.0
 
 dev_dependencies:
   flutter_test:
