@@ -6,7 +6,7 @@ class FindBlePage extends StatefulWidget {
   const FindBlePage({Key? key}) : super(key: key);
 
   @override
-  _FindBlePageState createState() => _FindBlePageState();
+  State<FindBlePage> createState() => _FindBlePageState();
 }
 
 class _FindBlePageState extends State<FindBlePage> {
