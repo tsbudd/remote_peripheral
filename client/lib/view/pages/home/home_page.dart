@@ -1,4 +1,5 @@
 import 'package:client/control/provider/providers.dart';
+import 'package:client/view/widgets/device_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
 
@@ -22,7 +23,7 @@ class _FindBlePageState extends State<FindBlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Bluetooth Devices'),
+        title: const Text('BLE Peripheral Devices'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -41,6 +42,7 @@ class _FindBlePageState extends State<FindBlePage> {
                     CircularProgressIndicator(),
                     SizedBox(height: 16),
                     Text('Searching For Bluetooth Peripheral Devices...'),
+                    Text('(this can take up to 10 seconds)')
                   ],
                 ),
               );
@@ -67,18 +69,7 @@ class _FindBlePageState extends State<FindBlePage> {
                   ),
                 );
               }
-              return ListView.builder(
-                itemCount: deviceList.length,
-                itemBuilder: (context, index) {
-                  final device = deviceList[index];
-                  return ListTile(
-                    title: Text(device.name),
-                    onTap: () {
-                      // Handle device selection here
-                    },
-                  );
-                },
-              );
+              return BleDeviceGrid(deviceList: deviceList);
             }
           },
         ),

@@ -25,15 +25,15 @@ Future<List<BluetoothDevice>> scanForDevices() async {
       statuses[Permission.bluetoothAdvertise] == PermissionStatus.granted &&
       statuses[Permission.bluetoothConnect] == PermissionStatus.granted) {
 
-    logger.i("Starting Bluetooth Scan");
-    flutterBlue.startScan(timeout: Duration(seconds: scanDuration),
-        scanMode: ScanMode.lowPower);
+    // logger.i("Starting Bluetooth Scan");
+    flutterBlue.startScan(timeout: Duration(seconds: scanDuration));
 
     // adding devices to deviceList
     flutterBlue.scanResults.listen((results) {
       for (ScanResult r in results) {
-        if (r.device.name.isNotEmpty && !devicesList.contains(r.device)) {
-          logger.v('${r.device.name} found! rssi: ${r.rssi}');
+        if (r.device.name.isNotEmpty && !devicesList.contains(r.device)
+        && r.device.name.contains("")) {
+          // logger.v('${r.device.name} found! rssi: ${r.rssi}');
           devicesList.add(r.device);
         }
       }
@@ -44,7 +44,7 @@ Future<List<BluetoothDevice>> scanForDevices() async {
 
     // Stop scanning
     flutterBlue.stopScan();
-    logger.i("Bluetooth Scan Stopped");
+    // logger.i("Bluetooth Scan Stopped");
 
     // Resolve the completer with the devicesList
     completer.complete(devicesList);

@@ -29,7 +29,7 @@ void setup() {
     Serial.setDebugOutput(true);
     Serial.print("ESP32 SDK: ");
     Serial.println(ESP.getSdkVersion());
-    ble.begin("BLE_Peripheral_test");
+    ble.begin("BLE_Peripheral_test2");
 }
 
 void loop() {
