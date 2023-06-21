@@ -1,32 +1,37 @@
-//This example code is in the Public Domain (or CC0 licensed, at your option.)
-//By Evandro Copercini - 2018
+// Copyright 2015-2016 Espressif Systems (Shanghai) PTE LTD
 //
-//This example creates a bridge between Serial and Classical Bluetooth (SPP)
-//and also demonstrate that SerialBT have the same functionalities of a normal Serial
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 
-#include "BluetoothSerial.h"
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+// Sketch shows how to use SimpleBLE to advertise the name of the device and change it on the press of a button
+// Useful if you want to advertise some sort of message
+// Button is attached between GPIO 0 and GND, and the device name changes each time the button is pressed
+
+#include "SimpleBLE.h"
 
 #if !defined(CONFIG_BT_ENABLED) || !defined(CONFIG_BLUEDROID_ENABLED)
 #error Bluetooth is not enabled! Please run `make menuconfig` to and enable it
 #endif
 
-BluetoothSerial SerialBT;
+SimpleBLE ble;
 
 void setup() {
-  Serial.begin(115200);
-  SerialBT.begin("BLE_Peripheral"); //Bluetooth device name
-  Serial.println("The device started, now you can pair it with bluetooth!");
+    Serial.begin(115200);
+    Serial.setDebugOutput(true);
+    Serial.print("ESP32 SDK: ");
+    Serial.println(ESP.getSdkVersion());
+    ble.begin("BLE_Peripheral_test");
 }
 
 void loop() {
-  if (Serial.available()) {
-    SerialBT.write(Serial.read());
-  }
-  if (SerialBT.available()) {
-    int rssi = SerialBT.getRssi(); // Get the RSSI value
-    Serial.print("RSSI: ");
-    Serial.println(rssi);
-    Serial.write(SerialBT.read());
-  }
-  delay(20);
+    while(Serial.available()) Serial.write(Serial.read());
 }

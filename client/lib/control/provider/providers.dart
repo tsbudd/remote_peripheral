@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter_blue/flutter_blue.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:logger/logger.dart';
@@ -8,9 +7,11 @@ part 'providers.g.dart';
 
 var logger = Logger();
 
+// Bluetooth Instance
+FlutterBlue flutterBlue = FlutterBlue.instance;
+
 Future<List<BluetoothDevice>> scanForDevices() async {
   Completer<List<BluetoothDevice>> completer = Completer();
-  FlutterBlue flutterBlue = FlutterBlue.instance;
   List<BluetoothDevice> devicesList = [];
   Map<Permission, PermissionStatus> statuses = await [
     Permission.bluetoothScan,
@@ -23,9 +24,12 @@ Future<List<BluetoothDevice>> scanForDevices() async {
   if (statuses[Permission.bluetoothScan] == PermissionStatus.granted &&
       statuses[Permission.bluetoothAdvertise] == PermissionStatus.granted &&
       statuses[Permission.bluetoothConnect] == PermissionStatus.granted) {
-    logger.i("Starting Bluetooth Scan");
-    flutterBlue.startScan(timeout: Duration(seconds: scanDuration));
 
+    logger.i("Starting Bluetooth Scan");
+    flutterBlue.startScan(timeout: Duration(seconds: scanDuration),
+        scanMode: ScanMode.lowPower);
+
+    // adding devices to deviceList
     flutterBlue.scanResults.listen((results) {
       for (ScanResult r in results) {
         if (r.device.name.isNotEmpty && !devicesList.contains(r.device)) {
@@ -50,4 +54,8 @@ Future<List<BluetoothDevice>> scanForDevices() async {
   }
 
   return completer.future;
+}
+
+Future<void> connectToDevice(BluetoothDevice device)async {
+  await device.connect();
 }
