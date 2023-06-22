@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:vrouter/vrouter.dart';
 
 class BleDeviceInspection extends StatelessWidget {
   final BluetoothDevice device;
@@ -20,13 +21,12 @@ class BleDeviceInspection extends StatelessWidget {
           Text('Name: ${device.name}'),
           Text('ID: ${device.id}'),
           Text('Type: ${device.type}'),
-          // Add more technical data fields as needed
         ],
       ),
       actions: [
         ElevatedButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            VRouter.of(context).pop();
           },
           child: const Text('Close'),
         ),

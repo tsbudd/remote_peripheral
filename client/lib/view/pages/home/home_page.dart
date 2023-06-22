@@ -1,76 +1,56 @@
 import 'package:client/control/provider/providers.dart';
-import 'package:client/view/widgets/device_grid.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FindBlePage extends StatefulWidget {
+import '../../widgets/device_grid.dart';
+
+class FindBlePage extends ConsumerWidget {
   const FindBlePage({Key? key}) : super(key: key);
 
   @override
-  State<FindBlePage> createState() => _FindBlePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final devices = ref.watch(scanForDevicesProvider);
 
-class _FindBlePageState extends State<FindBlePage> {
-  late Future<List<BluetoothDevice>> devices;
-
-  @override
-  void initState() {
-    super.initState();
-    devices = scanForDevices();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('BLE Peripheral Devices'),
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          setState(() {
-            devices = scanForDevices();
-          });
+          ref.refresh(scanForDevicesProvider);
         },
-        child: FutureBuilder<List<BluetoothDevice>>(
-          future: devices,
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(
+        child: devices.when(
+          loading: () => const Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                CircularProgressIndicator(),
+                SizedBox(height: 16),
+                Text('Searching For Bluetooth Peripheral Devices...'),
+                Text('(this can take up to 10 seconds)'),
+              ],
+            ),
+          ),
+          error: (error, stackTrace) => Center(child: Text('Error: $error')),
+          data: (deviceList) {
+            if (deviceList.isEmpty) {
+              return Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CircularProgressIndicator(),
-                    SizedBox(height: 16),
-                    Text('Searching For Bluetooth Peripheral Devices...'),
-                    Text('(this can take up to 10 seconds)')
+                    const Text('No Bluetooth Peripheral Devices Found'),
+                    const SizedBox(height: 16),
+                    ElevatedButton(
+                      onPressed: () async {
+                        ref.refresh(scanForDevicesProvider);
+                      },
+                      child: const Text('Retry'),
+                    ),
                   ],
                 ),
               );
-            } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}'));
-            } else {
-              final deviceList = snapshot.data;
-              if (deviceList == null || deviceList.isEmpty) {
-                return Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      const Text('No Bluetooth Peripheral Devices Found'),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: () async {
-                          setState(() {
-                            devices = scanForDevices();
-                          });
-                        },
-                        child: const Text('Retry'),
-                      )
-                    ],
-                  ),
-                );
-              }
-              return BleDeviceGrid(deviceList: deviceList);
             }
+            return BleDeviceGrid(deviceList: deviceList);
           },
         ),
       ),

@@ -1,8 +1,11 @@
+import 'package:client/control/provider/providers.dart';
 import 'package:client/view/widgets/device_inspection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blue/flutter_blue.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:vrouter/vrouter.dart';
 
-class BleDeviceGrid extends StatelessWidget {
+class BleDeviceGrid extends ConsumerWidget {
   final List<BluetoothDevice> deviceList;
 
   const BleDeviceGrid({
@@ -11,10 +14,12 @@ class BleDeviceGrid extends StatelessWidget {
   }) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final bleDevice = ref.watch(selectedBleProvider);
+
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: deviceList.length > 2 ? 2: 1, // Set the number of columns in the grid
+        crossAxisCount: deviceList.length >= 2 ? 2: 1, // Set the number of columns in the grid
         crossAxisSpacing: 4, // Set the spacing between columns
         mainAxisSpacing: 8, // Set the spacing between rows
       ),
@@ -44,6 +49,9 @@ class BleDeviceGrid extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () {
                     // Handle device connection here
+                    // set selected device
+                    ref.read(selectedBleProvider.notifier).state = device;
+                    VRouter.of(context).toNamed("bluetoothControl");
                   },
                   child: const Text('Connect'),
                 ),

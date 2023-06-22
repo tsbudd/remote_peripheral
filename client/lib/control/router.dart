@@ -1,3 +1,4 @@
+import 'package:client/view/pages/controls/blu_control.dart';
 import 'package:client/view/pages/home/home_page.dart';
 import 'package:client/view/pages/unknown_page.dart';
 import 'package:flutter/material.dart';
@@ -48,12 +49,12 @@ class CustRouter extends ConsumerWidget {
           VWidget(
             path: "/",
             name: "home",
-            widget: FindBlePage(),
+            widget: const FindBlePage(),
           ),
           VWidget(
             path: "/ble_control/",
             name: "bluetoothControl",
-            widget: UnknownPage(key: UniqueKey()),
+            widget: const BleControlPage(),
           ),
           VWidget(
               path: "/unknown",
